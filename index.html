@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TruckShield — Commercial Truck Insurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --yellow: #f5c518;
+    --yellow-dark: #d4a800;
+    --white: #f9f5ee;
+    --gray: #1e1e1e;
+    --gray2: #2e2e2e;
+    --text-muted: #888;
+    --red: #e03c2f;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #222;
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.6rem; letter-spacing: 1px;
+    color: var(--yellow);
+  }
+  .logo span { color: var(--white); }
+  .header-cta {
+    background: var(--yellow); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1rem; letter-spacing: 1px;
+    text-transform: uppercase; padding: 10px 24px;
+    border: none; cursor: pointer; transition: background .2s;
+    text-decoration: none;
+  }
+  .header-cta:hover { background: var(--yellow-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 79px, #1a1a1a 79px, #1a1a1a 80px),
+      repeating-linear-gradient(180deg, transparent, transparent 79px, #1a1a1a 79px, #1a1a1a 80px);
+    opacity: 0.4;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 50%; left: -20px;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 28vw; line-height: 1;
+    color: #111; z-index: 0; pointer-events: none;
+    letter-spacing: -4px; white-space: nowrap;
+  }
+
+  .hero-left { position: relative; z-index: 1; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1a1a1a; border: 1px solid #333;
+    padding: 6px 14px; margin-bottom: 24px;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--yellow);
+    animation: fadeDown .6s ease both;
+  }
+  .badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--yellow); border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.4;transform:scale(1.4)}
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: .95; text-transform: uppercase;
+    animation: fadeUp .6s .1s ease both;
+  }
+  h1 em { font-style: normal; color: var(--yellow); display: block; }
+
+  .hero-sub {
+    margin-top: 24px; font-size: 1.1rem; color: #aaa;
+    max-width: 480px; line-height: 1.6;
+    animation: fadeUp .6s .2s ease both;
+  }
+
+  .trust-row {
+    display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap;
+    animation: fadeUp .6s .3s ease both;
+  }
+  .trust-item { display: flex; align-items: center; gap: 10px; }
+  .trust-icon {
+    width: 36px; height: 36px; background: #1a1a1a;
+    border: 1px solid #333; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem;
+  }
+  .trust-text { font-size: 0.8rem; color: #888; line-height: 1.3; }
+  .trust-text strong { display: block; color: var(--white); font-size: 0.95rem; }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    position: relative; z-index: 1;
+    background: var(--gray);
+    border: 1px solid #333;
+    padding: 40px;
+    animation: fadeUp .6s .15s ease both;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px;
+    background: linear-gradient(135deg, var(--yellow), transparent 50%);
+    z-index: -1;
+  }
+  .form-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.5rem; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .form-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 0.75rem; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #777; margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%; padding: 13px 16px;
+    background: var(--black); border: 1px solid #333;
+    color: var(--white); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem; outline: none;
+    transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus { border-color: var(--yellow); }
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: #1a1a1a; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .submit-btn {
+    width: 100%; padding: 16px;
+    background: var(--yellow); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.2rem; letter-spacing: 2px;
+    text-transform: uppercase; border: none; cursor: pointer;
+    margin-top: 8px; transition: background .2s, transform .1s;
+    position: relative; overflow: hidden;
+  }
+  .submit-btn:hover { background: var(--yellow-dark); }
+  .submit-btn:active { transform: scale(.98); }
+  .submit-btn .btn-arrow { margin-left: 10px; }
+
+  .form-disclaimer {
+    font-size: 0.72rem; color: #555; margin-top: 12px;
+    line-height: 1.5; text-align: center;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-state {
+    display: none; text-align: center; padding: 20px 0;
+  }
+  .success-icon {
+    width: 64px; height: 64px; background: var(--yellow);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 1.8rem;
+  }
+  .success-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.8rem; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .success-sub { color: #888; font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--yellow); padding: 24px 48px;
+    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;
+  }
+  .stat {
+    text-align: center; color: var(--black);
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.5rem;
+  }
+  .stat-label { font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── COVERAGE SECTION ── */
+  .section { padding: 80px 48px; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(2rem, 4vw, 3.5rem);
+    text-transform: uppercase; line-height: 1; margin-bottom: 48px;
+  }
+
+  .coverage-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .coverage-card {
+    background: var(--gray); padding: 32px;
+    border-top: 3px solid transparent;
+    transition: border-color .2s, background .2s;
+    cursor: default;
+  }
+  .coverage-card:hover {
+    border-color: var(--yellow);
+    background: var(--gray2);
+  }
+  .coverage-icon { font-size: 2rem; margin-bottom: 16px; }
+  .coverage-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.2rem;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .coverage-desc { font-size: 0.88rem; color: #888; line-height: 1.6; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    padding: 80px 48px;
+    background: var(--gray);
+  }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .step {
+    padding: 32px; position: relative;
+    border-right: 1px solid #333;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 4rem; color: #1f1f1f;
+    line-height: 1; margin-bottom: 16px;
+  }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+    text-transform: uppercase; margin-bottom: 8px;
+    color: var(--yellow);
+  }
+  .step-desc { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-section { padding: 80px 48px; }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .testimonial {
+    background: var(--gray); padding: 32px;
+  }
+  .stars { color: var(--yellow); font-size: 1rem; margin-bottom: 16px; }
+  .testimonial-text { font-size: 0.92rem; color: #ccc; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .testimonial-author { font-size: 0.8rem; color: #555; }
+  .testimonial-author strong { color: var(--white); display: block; font-style: normal; }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    background: var(--yellow); padding: 80px 48px;
+    text-align: center;
+  }
+  .bottom-cta h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase; color: var(--black);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .bottom-cta p { font-size: 1rem; color: #444; margin-bottom: 32px; }
+  .bottom-cta-btn {
+    background: var(--black); color: var(--yellow);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.2rem; letter-spacing: 2px;
+    text-transform: uppercase; padding: 18px 48px;
+    border: 3px solid var(--black); cursor: pointer;
+    transition: all .2s;
+  }
+  .bottom-cta-btn:hover { background: transparent; color: var(--black); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); padding: 32px 48px;
+    border-top: 1px solid #1e1e1e;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; color: var(--yellow); font-size: 1.2rem; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.8rem; color: #555; text-decoration: none; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy { font-size: 0.75rem; color: #444; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    header { padding: 16px 20px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; gap: 40px; }
+    .hero-bg-text { display: none; }
+    .stats-bar { padding: 20px; }
+    .section, .how-section, .testimonial-section, .bottom-cta { padding: 60px 20px; }
+    .coverage-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step { border-bottom: 1px solid #333; }
+    .testimonials { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Truck<span>Shield</span></div>
+  <a href="#quote" class="header-cta">Get Free Quote</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">TRUCK</div>
+
+  <div class="hero-left">
+    <div class="badge">🇺🇸 USA Commercial Coverage</div>
+    <h1>Protect Your<em>Rig. Your</em>Business.</h1>
+    <p class="hero-sub">Get commercial truck insurance quotes in under 2 minutes. Owner operators, fleets, and long-haul truckers covered nationwide.</p>
+    <div class="trust-row">
+      <div class="trust-item">
+        <div class="trust-icon">🏆</div>
+        <div class="trust-text"><strong>A+ Rated</strong>Carriers Only</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <div class="trust-text"><strong>2-Min Quote</strong>No Obligation</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💰</div>
+        <div class="trust-text"><strong>Save 40%</strong>Avg. Savings</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE FORM -->
+  <div class="form-card" id="quote">
+    <div class="form-inner">
+      <div class="form-title">Get Your Free Quote</div>
+      <div class="form-subtitle">Takes less than 2 minutes • No commitment required</div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="John Smith" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="(555) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>ZIP Code</label>
+          <input type="text" id="zip" placeholder="90001" maxlength="5" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="john@email.com" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Truck Type</label>
+          <select id="truck">
+            <option value="">Select Type</option>
+            <option>Semi / 18-Wheeler</option>
+            <option>Box Truck</option>
+            <option>Flatbed</option>
+            <option>Dump Truck</option>
+            <option>Tanker</option>
+            <option>Refrigerated</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>How Many Trucks?</label>
+          <select id="fleet">
+            <option value="">Select</option>
+            <option>1 (Owner Operator)</option>
+            <option>2–5 Trucks</option>
+            <option>6–15 Trucks</option>
+            <option>16–50 Trucks</option>
+            <option>50+ Trucks</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">
+        GET MY FREE QUOTE <span class="btn-arrow">→</span>
+      </button>
+      <div class="form-disclaimer">
+        By clicking above, you agree to be contacted by a licensed insurance agent. Your information is 100% secure and never sold to third parties.
+      </div>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Quote Request Sent!</div>
+      <div class="success-sub">A licensed commercial truck insurance specialist will contact you within <strong style="color:var(--yellow)">15 minutes</strong>.<br><br>Check your email for your quote summary.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">50,000+</div><div class="stat-label">Truckers Insured</div></div>
+  <div class="stat"><div class="stat-num">$847</div><div class="stat-label">Avg. Annual Savings</div></div>
+  <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Carrier Partners</div></div>
+  <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Claims Satisfaction</div></div>
+</div>
+
+<!-- COVERAGE -->
+<section class="section">
+  <div class="section-label">What We Cover</div>
+  <div class="section-title">Coverage Built<br>For Truckers</div>
+  <div class="coverage-grid">
+    <div class="coverage-card">
+      <div class="coverage-icon">🛡️</div>
+      <div class="coverage-name">Primary Liability</div>
+      <div class="coverage-desc">Required by FMCSA. Protects against bodily injury and property damage you cause to others on the road.</div>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon">📦</div>
+      <div class="coverage-name">Cargo Insurance</div>
+      <div class="coverage-desc">Covers the freight you haul against loss, theft, or damage in transit. Shippers demand it.</div>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon">🚛</div>
+      <div class="coverage-name">Physical Damage</div>
+      <div class="coverage-desc">Collision and comprehensive coverage for your truck — accidents, fire, theft, weather events.</div>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon">🏥</div>
+      <div class="coverage-name">Occupational Accident</div>
+      <div class="coverage-desc">Medical and disability benefits for owner-operators who aren't covered by workers' comp.</div>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon">🔧</div>
+      <div class="coverage-name">Bobtail Insurance</div>
+      <div class="coverage-desc">Covers your truck when driving without a trailer — between loads or returning after delivery.</div>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon">⚖️</div>
+      <div class="coverage-name">General Liability</div>
+      <div class="coverage-desc">Protects your trucking business from third-party claims of injury or property damage off the road.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-label">The Process</div>
+  <div class="section-title">How It Works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Fill The Form</div>
+      <div class="step-desc">Complete our 2-minute quote form with basic info about you and your truck.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Get Matched</div>
+      <div class="step-desc">We compare rates from 200+ carriers to find the best coverage at the lowest price.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Review Quotes</div>
+      <div class="step-desc">A specialist calls you to walk through options. No pressure, no obligation.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Get Covered</div>
+      <div class="step-desc">Choose your plan and get your certificate of insurance same day.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="section-label">Real Truckers</div>
+  <div class="section-title">What They Say</div>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Saved over $1,200 a year on my semi insurance. The process was super fast and the agent really knew trucking."</div>
+      <div class="testimonial-author"><strong>Mike Rodriguez</strong>Owner Operator — Texas</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"I have a fleet of 8 trucks. TruckShield got me better coverage than my old broker at almost 30% less."</div>
+      <div class="testimonial-author"><strong>Danny Walsh</strong>Fleet Owner — Ohio</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"When I had a claim, they handled everything same day. Best insurance experience I've had in 15 years of trucking."</div>
+      <div class="testimonial-author"><st
